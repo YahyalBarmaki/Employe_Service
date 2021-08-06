@@ -3,6 +3,9 @@ package com.employe_service.demo.metier;
 import com.employe_service.demo.entities.Employe;
 import com.employe_service.demo.repositorie.EmployeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +21,13 @@ public class EmpImplMetier implements EmployeMetier{
     @Override
     public List<Employe> listEmploye() {
         return employeRepository.findAll();
+    }
+
+    @Override
+    public List<Employe> listEmployePage(int pageNum, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNum,pageSize);
+        Page<Employe> pagedResult = employeRepository.findAll(pageable);
+        return pagedResult.toList();
     }
 
     @Override

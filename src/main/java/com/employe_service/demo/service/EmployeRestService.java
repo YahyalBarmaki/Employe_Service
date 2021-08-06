@@ -32,4 +32,8 @@ public class EmployeRestService {
     public Employe updateEmploye(@RequestBody Employe e, @PathVariable Long id) {
         return empImplMetier.updateEmploye(e, id);
     }
+    @GetMapping("/employes/{pageNum}/{pageSize}")
+    public List<Employe> listEmployePage(@PathVariable int pageNum, @PathVariable int pageSize) {
+        return empImplMetier.listEmployePage(pageNum, pageSize);
+    }
 }
