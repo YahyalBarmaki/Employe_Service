@@ -3,6 +3,10 @@ package com.employe_service.demo.metier;
 import com.employe_service.demo.entities.Service;
 import com.employe_service.demo.repositorie.ServiceRepositorie;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -19,6 +23,23 @@ public class SerImpMetier implements ServiceMetier{
     @Override
     public List<Service> listService() {
         return serviceRepositorie.findAll();
+    }
+
+    @Override
+    public List<Service> listServicePage(int pageNum, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNum,pageSize);
+        Page<Service> pagedResult = serviceRepositorie.findAll(pageable);
+
+        return pagedResult.toList();
+    }
+
+    @Override
+    public List<Service> listServiceSort(int pageNum, int pageSize, String nomService) {
+        Pageable pageable = PageRequest.of(pageNum,pageSize, Sort.by("nomService"));
+        Page<Service> pagedResult = serviceRepositorie.findAll(pageable);
+
+        return pagedResult.toList();
+
     }
 
     @Override

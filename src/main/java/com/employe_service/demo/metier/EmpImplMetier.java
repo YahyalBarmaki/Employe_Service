@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +29,13 @@ public class EmpImplMetier implements EmployeMetier{
         Pageable pageable = PageRequest.of(pageNum,pageSize);
         Page<Employe> pagedResult = employeRepository.findAll(pageable);
         return pagedResult.toList();
+    }
+
+    @Override
+    public List<Employe> listEmpSort(int pageNum, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNum,pageSize, Sort.by("tel"));
+        Page<Employe> page =  employeRepository.findAll(pageable);
+        return page.toList();
     }
 
     @Override
