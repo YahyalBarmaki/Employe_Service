@@ -3,8 +3,11 @@ package com.employe_service.demo.service;
 import com.employe_service.demo.entities.Service;
 import com.employe_service.demo.metier.ServiceMetier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @RestController
@@ -12,39 +15,34 @@ public class ServiceRestService {
     @Autowired
     private ServiceMetier serviceMetier;
     @PostMapping("/services")
-    public Service addService(@RequestBody Service s) {
-        return serviceMetier.addService(s);
+    public ResponseEntity<Service> addService(@RequestBody Service s) {
+              Service service =  serviceMetier.addService(s);
+              return new ResponseEntity<>(service, HttpStatus.CREATED);
     }
     @GetMapping("/services")
-    public List<Service> listService() {
-        return serviceMetier.listService();
+    public ResponseEntity<List<Service>> listService() {
+        List <Service>  service= serviceMetier.listService();
+        return new ResponseEntity<>(service,HttpStatus.OK);
     }
-
-    /*@GetMapping("/services/{pageNum}/{sizeNum}")
-    public List<Service> listServicePage(@PathVariableint pageNum,@PathVariable int sizeNum) {
-        return serviceMetier.listServicePage(pageNum, sizeNum);
-    }*/
     @GetMapping("/services/{id}")
-    public Service OneService(@PathVariable Long id) {
-        return serviceMetier.OneService(id);
+    public ResponseEntity<Service> OneService(@PathVariable Long id) {
+        Service service = serviceMetier.OneService(id);
+        return new ResponseEntity<>(service,HttpStatus.OK);
     }
     @DeleteMapping("/services/{id}")
-    public void DeleteService(@PathVariable  Long id) {
-        serviceMetier.DeleteService(id);
+    public ResponseEntity<?> DeleteService(@PathVariable  Long id) {
+      serviceMetier.DeleteService(id);
+        return  new ResponseEntity<>(HttpStatus.OK);
     }
     @PutMapping("/services/{id}")
-    public Service updateSer(@RequestBody Service s, @PathVariable Long id) {
-        return serviceMetier.updateSer(s, id);
+    public ResponseEntity<Service> updateSer(@RequestBody Service s, @PathVariable Long id) {
+        Service service = serviceMetier.updateSer(s, id);
+        return new ResponseEntity<>(service,HttpStatus.OK);
     }
 
     @GetMapping("/services/{pageNum}/{sizeNum}/{nomService}")
     public List<Service> listServiceSort(@PathVariable int pageNum,@PathVariable int sizeNum,@PathVariable String nomService) {
         return serviceMetier.listServiceSort(pageNum, sizeNum, nomService);
     }
-    /*@GetMapping("/services/keyword/{keyword}")
-    public List<Service> listServiceSearch(@PathVariable String keyword) {
-        return serviceMetier.listServiceSearch(keyword);
-    }*/
-
 }
 
