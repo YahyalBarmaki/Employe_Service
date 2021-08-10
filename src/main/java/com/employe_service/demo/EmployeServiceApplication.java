@@ -1,7 +1,6 @@
 package com.employe_service.demo;
 
-import com.employe_service.demo.entities.Service;
-import com.employe_service.demo.repositorie.ServiceRepositorie;
+import com.employe_service.demo.repositorie.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EmployeServiceApplication implements CommandLineRunner {
     @Autowired
-    ServiceRepositorie serviceRepositorie;
+    ServiceRepository serviceRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(EmployeServiceApplication.class, args);

@@ -9,6 +9,7 @@ public interface EmployeMetier {
     public List<Employe> listEmploye();
     public List<Employe> listEmployePage(int pageNum, int pageSize);
     public List<Employe> listEmpSort(int pageNum, int pageSize);
+    //public List<Employe> listEmployeSearch(String keyword);
     public Employe getEmploye(Long id);
     void delEmploye(Long id);
     public Employe updateEmploye(Employe e, Long id);
