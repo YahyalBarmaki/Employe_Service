@@ -6,10 +6,7 @@ import com.employe_service.demo.entities.RoleUserForm;
 import com.employe_service.demo.metier.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,17 +30,21 @@ public class UserRestService {
     }
 
     @PostMapping("/users/addUser")
-    public ResponseEntity<AppUser>  addNewUser(AppUser appUser) {
+    public ResponseEntity<AppUser>  addNewUser(@RequestBody AppUser appUser) {
             AppUser appUser1 = accountService.addNewUser(appUser);
         return new ResponseEntity<>(appUser1,HttpStatus.CREATED);
     }
     @PostMapping("/role/addRole")
-    public ResponseEntity<AppRole> addNewRole(AppRole appRole) {
+    public ResponseEntity<AppRole> addNewRole(@RequestBody AppRole appRole) {
         AppRole appRole1 = accountService.addNewRole(appRole);
         return new ResponseEntity<>(appRole1,HttpStatus.CREATED);
     }
     @PostMapping("role/addRoleToUser")
     public void addRoleToUser(RoleUserForm roleUserForm) {
         accountService.addRoleToUser(roleUserForm.getUsername(),roleUserForm.getUsername());
+    }
+    @GetMapping("users/username/{username}")
+    public AppUser loadUserByUsername(@PathVariable String username) {
+        return accountService.loadUserByUsername2(username);
     }
 }

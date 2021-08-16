@@ -9,7 +9,7 @@ public interface AccountService {
     public AppUser addNewUser(AppUser u);
     public AppRole addNewRole(AppRole r);
     void addRoleToUser(String username,String nameRole);
-    AppUser loadUserByUsername(AppUser username);
+    AppUser loadUserByUsername2(String username);
     public List<AppUser> allUsers();
     public List<AppRole> allRoles();
 }

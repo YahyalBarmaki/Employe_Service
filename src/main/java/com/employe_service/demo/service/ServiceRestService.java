@@ -2,20 +2,22 @@ package com.employe_service.demo.service;
 
 import com.employe_service.demo.entities.Service;
 import com.employe_service.demo.metier.ServiceMetier;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @RestController
 public class ServiceRestService {
-    @Autowired
     private ServiceMetier serviceMetier;
+
+    public ServiceRestService(ServiceMetier serviceMetier) {
+        this.serviceMetier = serviceMetier;
+    }
+
     @PostMapping("/services")
-    public ResponseEntity<Service> addService(@RequestBody Service s) {
+    public ResponseEntity<Service> addService(Service s) {
               Service service =  serviceMetier.addService(s);
               return new ResponseEntity<>(service, HttpStatus.CREATED);
     }
